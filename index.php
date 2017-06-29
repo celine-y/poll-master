@@ -1,4 +1,5 @@
 <?php
-//testing codeship
-// test webhosting
+echo ('HELLO');
+
+// scp
 ?>
