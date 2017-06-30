@@ -1,3 +1,5 @@
 <?php
-//testing codeship
+echo ('HELLO');
+
+// scp
 ?>
