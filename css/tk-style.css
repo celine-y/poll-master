@@ -1,0 +1,116 @@
+/*	--------------------------------------------------
+	General
+	-------------------------------------------------- */
+
+body {
+	padding-top: 70px;
+	font-family: 'Open Sans', sans-serif;
+	color: #353535;
+}
+
+.content h1 {
+	text-align: left;
+	display: inline-block;
+}
+
+#addPoll button{
+	text-align: center;
+	display: block;
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	margin-right: 5px;
+}
+
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+
+/*	--------------------------------------------------
+	Poll Table Filter
+	-------------------------------------------------- */
+.panel {
+	border: 1px solid #ddd;
+	background-color: #fcfcfc;
+}
+.panel .btn-group {
+	margin: 15px 0 30px;
+}
+.panel .btn-group .btn {
+	transition: background-color .3s ease;
+}
+.table-filter {
+	background-color: #fff;
+	border-bottom: 1px solid #eee;
+}
+.table-filter tbody tr:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+.table-filter tbody tr td {
+	padding: 10px;
+	vertical-align: middle;
+	border-top-color: #eee;
+}
+.table-filter tbody tr.selected td {
+	background-color: #eee;
+}
+.table-filter tr td:first-child {
+	width: 35px;
+	}
+
+
+.table-filter .star {
+	color: #ccc;
+	text-align: center;
+	display: block;
+	position: relative;
+}
+.table-filter .star.star-checked {
+	color: #F0AD4E;
+}
+.table-filter .star:hover {
+	color: #ccc;
+}
+.table-filter .star.star-checked:hover {
+	color: #F0AD4E;
+}
+.table-filter .media-photo {
+	width: 35px;
+}
+.table-filter .media-body {
+    /*display: block;*/
+    /* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+}
+.table-filter .media-meta {
+	font-size: 11px;
+	color: #999;
+}
+.table-filter .media .title {
+	color: #2BBCDE;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: normal;
+	margin: 0;
+}
+.table-filter .media .title span {
+	font-size: .8em;
+	margin-right: 20px;
+}
+.table-filter .media .title span.normal {
+	color: #5cb85c;
+}
+.table-filter .media .title span.moderate {
+	color: #f0ad4e;
+}
+.table-filter .media .title span.urgent {
+	color: #d9534f;
+}
+.table-filter .media .summary {
+	font-size: 14px;
+}
