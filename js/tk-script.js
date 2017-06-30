@@ -13,9 +13,17 @@ $(document).ready(function(){
 			$('.table tr').css('display', 'none').fadeIn('slow');
 		}
 	});
-	
+
+	//favourite
+	//ADD AJAX TO UPDATE
+	$('.star').on('click', function () {
+      $(this).toggleClass('star-checked');
+    });
+
 });
 
+//global var
+var username='';
 
 function pollList(){
 	//ajax call get all poll questions from specific user
@@ -31,7 +39,7 @@ function pollList(){
 			var html='';
 			$.each(data, function(index,val){
 				html+='<tr data-status="'+val.status+'" data-sid='+val.sid+'>';
-				html+='<td><a href="javascript:;" class="star"><i class="glyphicon glyphicon-star"></i></a></td>';
+				html+='<td><a href="javascript:;" class="star '+ ((val.fave=='T')?'star-checked':'')+'"><i class="glyphicon glyphicon-star"></i></a></td>';
 				html+='<td><div class="media">';
 				html+='<a href="#" class="pull-left"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo"></a>';
 				html+='<div class="media-body">';

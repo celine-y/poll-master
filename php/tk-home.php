@@ -26,14 +26,16 @@ $uid = $_GET['userid'];
 //$data =  array('msg' => 'true');
 //echo json_encode($data);
 
-//sid, sq, status, favourite, group memebers
+//sid, sq, status, favourite, group memebers,username
 $data = array (
 	array("sid" => 1,
 	"sq" => "what to eat?",
-	"status" => "urgent"),
+	"status" => "urgent",
+	"fave" => "T"),
 	array("sid" => 2,
 	"sq" => "what time do u sleep at?",
-	"status" => "moderate")
+	"status" => "moderate",
+	"fave" => "F")
 	);
 
 echo json_encode($data);
