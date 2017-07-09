@@ -6,7 +6,7 @@ function get_mysqli_conn()
 {
     $dbhost = 'mansci-db.uwaterloo.ca';
     $dbuser = 'clcyau';
-    $dbpassword = 'Fitlyfe43v!';
+    $dbpassword = '';
     $dbname = 'clcyau_pollmaster';
     $mysqli = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
     if ($mysqli->connect_errno) 

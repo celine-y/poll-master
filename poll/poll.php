@@ -7,7 +7,7 @@
 <?php
 include('../php/my_connect.php');
 //get if user has voted previously
-$userid = 1;
+$userid = 2;
 $sid = 1;
 
 $con = get_mysqli_conn();
@@ -41,14 +41,8 @@ echo '<div id="title">
 //user has voted before
 if ($uservote){
     echo 'User voted before';
-    $strStmt = 'SELECT uv.oid, COUNT(*)
-    FROM uservote uv
-    WHERE uv.oid IN (SELECT opt.oid
-                    FROM options opt
-                    WHERE opt.sid='.$sid.')
-    GROUP BY uv.oid
-    ';
-
+    $results = get_poll_results($con, $sid);
+    var_dump($results);
 }
 //user has not voted before
 else{
@@ -73,6 +67,22 @@ else{
 
 $con->close();
 $query->close();
+
+function get_poll_results($con, $sid){
+    $strStmt = 'SELECT uv.oid, COUNT(*)
+    FROM uservote uv
+    WHERE uv.oid IN (SELECT opt.oid
+                    FROM options opt
+                    WHERE opt.sid='.$sid.')
+    GROUP BY uv.oid
+    ';
+
+    $query=mysqli_query($con, $strStmt);
+    if (!$query){
+        die('Could not query='.$strStmt);
+    }
+    return $query;
+}
 
 ?>
     </div><!--end div content-->
