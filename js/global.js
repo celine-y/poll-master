@@ -1,1 +1,0 @@
-//bind logout button 

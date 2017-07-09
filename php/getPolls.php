@@ -1,45 +1,36 @@
-<?php
-// Enable error logging: 
-error_reporting(E_ALL ^ E_NOTICE);
-// mysqli connection via user-defined function
-include ('./my_connect.php');
-$mysqli = get_mysqli_conn();
-?>
 
 <?php
-$sql = "Select username"
-	  ."from username"
-	  ."where userid=1";
 
-$stmt = $mysqli->prepare($sql);
+include('./my_connect.php');
+get_mysqli_conn();
 
 $uid = $_GET['userid'];
+$uid = mysql_real_escape_string($uid);
 
 
-//GET ERROR seems to occur here..
-//$stmt->bind_param('i', $uid); 
+$query = "Select s.sid, s.question, c.descrip as status, coalesce(f.active,'F')as fave"
+." From usergroup ug"
+." Left Join groupsurvey gs on gs.gid=ug.gid"
+." Join survey s on s.sid=gs.sid"
+." Left Join favourite f on f.userid=$uid and f.sid=s.sid"
+." Join color c on c.cid=s.cid"
+." Where ug.userid=$uid";
 
-//$stmt->execute();
+$qry_result = mysql_query($query) or die(mysql_error());
 
-//$stmt->bind_result($userName);
-
-//$data =  array('msg' => 'true');
-//echo json_encode($data);
-
-//sid, sq, status, favourite, group memebers,username
-$data = array (
-	array("sid" => 1,
-	"sq" => "what to eat?",
-	"status" => "urgent",
-	"fave" => "T"),
-	array("sid" => 2,
-	"sq" => "what time do u sleep at?",
-	"status" => "moderate",
-	"fave" => "F")
+$result = array();
+//sid, sq, status, favourite, tags, group memebers,username
+while ($row = mysql_fetch_array($qry_result)) {
+	$data = array (
+			"sid" => $row[sid],
+			"sq" => $row[question],
+			"status" => $row[status],
+			"fave" => $row[fave],
 	);
 
-echo json_encode($data);
+	array_push($result,$data);
+}
 
-//$stmt->close();
-$mysqli->close();
+echo json_encode($result);
+
 ?>

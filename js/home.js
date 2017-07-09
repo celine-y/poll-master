@@ -1,3 +1,16 @@
+var urlParams;
+(window.onpopstate = function () {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+
+    urlParams = {};
+    while (match = search.exec(query))
+       urlParams[decode(match[1])] = decode(match[2]);
+})();
+
 $(document).ready(function(){
 
 	//get polls and groups
@@ -9,15 +22,15 @@ $(document).ready(function(){
 		var $target = $(this).data('target');
 
 		if ($target != 'all') {
-			$('.table tr-filter').css('display', 'none');
-			$('.table tr-filter[data-status="' + $target + '"]').fadeIn('slow');
+			$('.table tr.tr-filter').css('display', 'none');
+			$('.table tr.tr-filter[data-status="' + $target + '"]').fadeIn('slow');
 		} else {
-			$('.table tr-filter').css('display', 'none').fadeIn('slow');
+			$('.table tr.tr-filter').css('display', 'none').fadeIn('slow');
 		}
 	});
 
 	//update favourite
-	$('.star').on('click', function () {
+	$('button[data-target="addPoll"]').on('click', function () {
 		if($(this).hasClass('star-checked')){
 			var action='delete';
 		}else{
@@ -29,13 +42,13 @@ $(document).ready(function(){
 		var favsid=$(this).closest('tr').data('sid');
 		//UPDATE or DELETE?
 		$.ajax({
-			url: 'php/updateFav.php',
+			url: 'php/updateFave.php',
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				userid: '1',
-				sid: favsid,
-				action: action
+				userid: 1,
+				sid: 2,
+				action: 'insert'
 			},
 			success: function(){
 				$(this).toggleClass('star-checked');
@@ -67,8 +80,6 @@ $(document).ready(function(){
 
 });
 
-//global var
-var username='';
 
 //display pollList on home page
 function pollList(){
@@ -78,14 +89,13 @@ function pollList(){
 		type: 'GET',
 		dataType: 'json',
 		data: {
-			//userid: global.user.id;
-			userid: '1'
+			//username: global.username
 		},
 		success: function(data){
 			var html='';
 			$.each(data, function(index,val){
 				html+='<tr class="tr-filter" data-status="'+val.status+'" data-sid='+val.sid+'>';
-				html+='<td><a href="javascript:;" class="star '+ ((val.fave=='T')?'star-checked':'')+'"><i class="glyphicon glyphicon-star"></i></a></td>';
+				html+='<td><span class="star '+ ((val.fave=='T')?'star-checked':'')+'"><i class="glyphicon glyphicon-star"></i></span></td>';
 				html+='<td><div class="media">';
 				html+='<a href="#" class="pull-left"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo"></a>';
 				html+='<div class="media-body">';
