@@ -57,7 +57,10 @@ $(function() {
 
 				//redirect
 				if (r=='sucess'){
-					$(location).attr('href', './home.html')
+					$('input#user-new').val('');
+					$('input#pass-new').val('');
+					$('#success').text('Successful! Click here to log in');
+					$('#success').effect("fade", { times:2 }, "slow");
 				}
 			}
 		})		
@@ -84,7 +87,7 @@ $(function() {
 				success: function(r){
 				//redirect
 				if (r=='sucess'){
-				
+
 					$(location).attr('href', './home.html?user='+username);
 				}else if (r=='error'){
 					$('#foot-lnk').text('Username and password do not match');
