@@ -41,6 +41,7 @@ $(function() {
 		
 
 		if (username=='' || password==''){
+			$('#success').text('');
 			$('#foot-lnk2').text('Please enter both username and password');
 			$('#foot-lnk2').effect("shake", { times:2 }, "slow");
 		}else{
@@ -53,14 +54,14 @@ $(function() {
 					upass: password
 				},
 				success: function(r){
-				//check if any user exist in the table first
-
-				//redirect
 				if (r=='sucess'){
 					$('input#user-new').val('');
 					$('input#pass-new').val('');
+					$('#foot-lnk2').text('');
 					$('#success').text('Successful! Click here to log in');
-					$('#success').effect("fade", { times:2 }, "slow");
+				}else if (r=='error'){
+					$('#foot-lnk2').text('This username already exist');
+					$('#foot-lnk2').effect("shake", { times:2 }, "slow");				
 				}
 			}
 		})		
@@ -85,11 +86,9 @@ $(function() {
 					upass: password
 				},
 				success: function(r){
-				//redirect
-				if (r=='sucess'){
-
-					$(location).attr('href', './home.html?user='+username);
-				}else if (r=='error'){
+				if (r.status=='success'){
+					$(location).attr('href', './home.html?user='+username+'&uid='+r.uid);
+				}else if (r.status=='error'){
 					$('#foot-lnk').text('Username and password do not match');
 					$('#foot-lnk').effect("shake", { times:2 }, "slow");
 				}

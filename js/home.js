@@ -17,6 +17,8 @@ $(document).ready(function(){
 	pollList();
 	groupList();
 
+	$('a.navbar-brand').text('Welcome, '+urlParams.user);
+
 	//table filter
 	$('.btn-filter').on('click', function () {
 		var $target = $(this).data('target');
@@ -89,7 +91,8 @@ function pollList(){
 		type: 'GET',
 		dataType: 'json',
 		data: {
-			//username: global.username
+			userid: urlParams.uid,
+			username: urlParams.user
 		},
 		success: function(data){
 			var html='';
