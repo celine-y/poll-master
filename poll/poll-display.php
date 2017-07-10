@@ -9,7 +9,6 @@
     if ($uid == NULL){
         $uid = 1;
         $_SESSION['userId'] = $uid;
-        echo 'SESSION '.$_SESSION['userId'];
     }
     if ($sid == NULL){
         $sid = 1;
@@ -17,6 +16,14 @@
     }
     $poll = new poll($uid, $sid);
     ?>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="../js/jquery-2.2.4.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
 </header>
 
 <body>
@@ -28,16 +35,18 @@
             if (!$poll->hasUserVoted()){ //user has not voted
                 $pollOpt = $poll->get_options(); ?>
                 <div id="poll-form" class="poll-area">
-                <form action="poll-submit.php" method="post">
-                    <?php
-                    foreach($pollOpt as $row){
-                        echo '<input type="radio" name="vote" value="'.$row[1].'">'
-                            .$row[0].'</input>';
-                        echo '<br>';
-                    }
-                    //echo '<input type="hidden" name="userid" value="'.$uid.'/>';
-                    ?>
-                    <input type="submit" name="submit" value="Submit"/>
+                    <form action="poll-submit.php" method="post">
+                        <div class="form-group">
+                        <?php
+                        foreach($pollOpt as $row){
+                            echo '<input type="radio" name="vote" value="'.$row[1].'">'
+                                .$row[0].'</input>';
+                            echo '<br>';
+                        }
+                        //echo '<input type="hidden" name="userid" value="'.$uid.'/>';
+                        ?>
+                        <input type="submit" name="submit" value="Submit" class="btn btn-primary"/>
+                </div><!--end form-group-->
                 </form>
                 </div><!--end div poll-form-->
                 <?php
