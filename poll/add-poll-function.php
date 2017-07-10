@@ -1,41 +1,54 @@
 <?php
 include('../php/my_connect.php');
-session_start();
+// session_start();
 
-$con = cy_conn();
+// $con = cy_conn();
 
-$uid = $_SESSION['userId'];
-if ($uid == NULL){
-    $uid = 2;
-    $_SESSION['userId'] = $uid;
-}
+// $uid = $_SESSION['userId'];
+// echo 'UID'.$uid;
+// if ($uid == NULL){
+//     $uid = 2;
+//     $_SESSION['userId'] = $uid;
+// }
 
-function create_poll($question, $options){
+class addPoll{
+    private $con;
+    private $userid;
 
-}
-
-function get_users_groups(){
-    $strStmt = "SELECT g.gid, g.name
-    FROM groups g
-    WHERE g.gid IN (
-        SELECT userg.gid
-        FROM usergroup userg
-        WHERE userg.userid = '.$uid'
-    )";
-
-    $query = mysqli_query($con, $strStmt);
-
-    if (!$query){
-        die('Could not query='.$strStmt);
+    function __construct($uid){
+        $this->userid = $uid;
+        $this->con = cy_conn();
     }
-    
-    $groups = array();
 
-    while($row = $query->fetch_row()){
-        array_push($groups, $row);
+    //$questionInfo = array(question, array(opt1, opt2, ...))
+    function create_poll($questionInfo){
+        
     }
-    
-    return($groups);
+
+    function get_users_groups(){
+
+        $strStmt = "SELECT g.gid, g.name
+        FROM groups g
+        WHERE g.gid IN (
+            SELECT userg.gid
+            FROM usergroup userg
+            WHERE userg.userid=".$this->userid."
+        )";
+
+        $query = mysqli_query($this->con, $strStmt);
+
+        if (!$query){
+            die('Could not query='.$strStmt);
+        }
+        
+        $groups = array();
+
+        while($row = $query->fetch_row()){
+            array_push($groups, $row);
+        }
+        
+        return($groups);
+    }
 }
 
 ?>
