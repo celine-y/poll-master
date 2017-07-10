@@ -20,8 +20,9 @@ $(document).ready(function() {
         return false;
     });
 
+    
+
     $('form').submit(function(e){
-        console.log("Submit clicked");
         e.preventDefault();
 
         var qName = $("input[id='q-name']").val();
@@ -29,6 +30,26 @@ $(document).ready(function() {
               .map(function(){return $(this).val();}).get();
         var groupId = $("input[name='group[]']:checked").val();
         var tags = $("input[id='s-tag']").val().split(",");
-        console.log(qName, options, groupId, tags);
+        // console.log(qName, options, groupId, tags);
+
+        //TODO: pass this info to PHP to insert
+        $.ajax({
+            url: "../poll/submit-add-poll.php", 
+            type: 'POST',
+            data: {
+                q_name: qName,
+                options: JSON.stringify(options),
+                groupId:groupId,
+                tags:JSON.stringify(tags)
+            },
+            dataType: 'json',
+            success: function(result){
+                // $("#response").html(result);
+                console.log(result);
+            },
+            error: function(result){
+                console.log("AJAX eror: "+result);
+            }
+        });
     });
 });

@@ -1,15 +1,5 @@
 <?php
 include('../php/my_connect.php');
-// session_start();
-
-// $con = cy_conn();
-
-// $uid = $_SESSION['userId'];
-// echo 'UID'.$uid;
-// if ($uid == NULL){
-//     $uid = 2;
-//     $_SESSION['userId'] = $uid;
-// }
 
 class addPoll{
     private $con;
@@ -20,9 +10,25 @@ class addPoll{
         $this->con = cy_conn();
     }
 
-    //$questionInfo = array(question, array(opt1, opt2, ...))
-    function create_poll($questionInfo){
+    function get_colour(){
+        $strStmt = "SELECT class, cid, descrip
+            FROM color";
+
+        $query = mysqli_query($this->con, $strStmt);
+
+        if (!$query){
+            die('Could not query='.$strStmt);
+        }
+
+        $colours = array(array());
+        while($colourInfo = $query->fetch_row()){
+            if ($colourInfo != NULL){
+                array_push($colours, $colourInfo);
+            }
+        }
         
+        // var_dump($colours);
+        return $colours;
     }
 
     function get_users_groups(){

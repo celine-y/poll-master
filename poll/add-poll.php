@@ -27,11 +27,11 @@
     <script src="js/poll-adding.js"></script>
 </header>
 <body>
-    <h1 id="title">Add a survey
-    </h1>
+    <h1 id="title">Add a survey</h1>
+    <div id="response"></div>
     <form role="form" id="add-poll" method="post">
         <div class="form-group row">
-            <div id="questionName" class="col-xs-5">
+            <div id="questionName" class="col-md-6">
                 <label class="control-label" for="questionName">Question</label>
                 <input type="text" class="form-control" id="q-name"
                     aria-describedby="questionHelp"/>
@@ -39,7 +39,7 @@
             </div>
         </div><!--end form-group for Question name-->
         <div class="form-group row" id="options-area">
-            <div class="col-xs-5">
+            <div class="col-md-6">
                 <label for="controls" class="control-label">Options</label>
                 <div class="controls">
                     <div class="entry input-group">
@@ -55,7 +55,7 @@
         </div><!--end form-group for Options-->
 
         <div class="form-group row">
-            <div class="col-xs-5">
+            <div class="col-md-6">
                 <label for="user-group" class="control-label">Belongs to Group:</label>
                 <div id="user-group">
                     <?php 
@@ -74,7 +74,7 @@
         </div><!--end form-group for Group-->
 
         <div class="form-group row">
-            <div id="survey-tag" class="col-xs-5">
+            <div id="survey-tag" class="col-md-6">
                 <label for="survey-tag" class="control-label">Tag(s)</label>
                 <input type="text" class="form-control" id="s-tag"
                     aria-describedby="tagHelp" placeholder="food, friends, fun"/>
@@ -82,9 +82,23 @@
             </div>
         </div><!--end form-group for Tags-->
 
+        <div class="form-group row">
+            <div id="survey-color" class="col-md-6">
+                <label for="survey-color" class="control-label">Urgency</label>
+                <?php
+                $status = $newPoll->get_colour();
+                foreach($status as $colour){
+                    if ($colour[0] != NULL){
+                        echo '<button type="button" class="btn '.$colour[0].'" value="'.$colour[1].'">'.$colour[2].'</button>';
+                    }
+                }
+                ?>
+            </div>
+        </div><!--end form-group for Colors-->
+
         <!--Sumbit button start-->
         <div class="form-group row">
-            <div class="col-xs-5">
+            <div class="col-md-6">
                 <button id="submit" type="submit" class="btn btn-default">Add Question</button>
             </div>
         </div>

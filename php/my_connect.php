@@ -5,7 +5,7 @@ function get_mysqli_conn(){
 
   $dbhost = "mansci-db.uwaterloo.ca";
   $dbuser = "k3kittan";
-  $dbpass = "";
+  $dbpass = "p0llmaster123";
   $dbname = "k3kittan_proj";
 
   //Connect to MySQL Server
@@ -22,7 +22,7 @@ function get_mysqli_conn(){
 function cy_conn(){
   $dbhost = 'mansci-db.uwaterloo.ca';
   $dbuser = 'clcyau';
-  $dbpassword = '';
+  $dbpassword = 'p0llmaster123';
   $dbname = 'clcyau_pollmaster';
   $mysqli = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
   if ($mysqli->connect_errno) 
