@@ -76,10 +76,18 @@ $(document).ready(function(){
 		//redirect to next page
 	});
 
-	//click on a poll or group
-	$('.table-filter tbody tr').on('click', function(){
-		//find if it's from pollList or GroupList
+	//click on a survey
+	$('.table-filter tbody#pollQuest').on('click', 'tr', function() {
+		//pass sid, uid
+		var userid=urlParams.uid;
+		var sid=$(this).data('sid');
+		
+	});
+
+	//click on a group
+	$('.table-filter tbody#group').on('click','tr', function(){
 		//pass sid, gid, uid
+		
 	});
 
 
