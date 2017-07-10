@@ -8,12 +8,12 @@ class poll{
     function __construct($uid, $sid){
         $this->userid = $uid;
         $this->surveyid = $sid;
-        $this->con = get_mysqli_conn();
+        $this->con = cy_conn();
     }
 
     function hasUserVoted(){
         
-        // $this->$con = get_mysqli_conn();
+        // $this->$con = cy_conn();
         //statement to select the row of uservote based on survey
         $strStmt = "SELECT *
             FROM uservote u
@@ -30,7 +30,7 @@ class poll{
     }
 
     function getTitle(){
-        // $this->$con = get_mysqli_conn();
+        // $this->$con = cy_conn();
         //print out the title
         $strStmt = 'SELECT s.question
             FROM survey s

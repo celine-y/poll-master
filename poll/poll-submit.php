@@ -6,7 +6,7 @@ $userid = (int) $_SESSION['userId'];
 
 include('../php/my_connect.php');
 
-$con = get_mysqli_conn();
+$con = cy_conn();
 
 $sqlStr = "INSERT INTO uservote (userid, oid) VALUES (?,?)";
 
