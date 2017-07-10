@@ -6,7 +6,7 @@
 
     $uid = $_SESSION['userId'];
     if ($uid == NULL){
-        $uid = 1;
+        $uid = 2;
         $_SESSION['userId'] = $uid;
     }
     ?>
@@ -50,8 +50,8 @@
 
         <div class="form-group">
             <?php 
-            $groups  = get_users_groups();
-            var_dump($groups);
+            // $groups  = get_users_groups();
+            // var_dump($groups);
             foreach($groups as $group){
             echo '
             <div class="checkbox">

@@ -2,7 +2,7 @@
 include('../php/my_connect.php');
 session_start();
 
-$con = get_my_sqli_conn();
+$con = cy_conn();
 
 $uid = $_SESSION['userId'];
 if ($uid == NULL){
