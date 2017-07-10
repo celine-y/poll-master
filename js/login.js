@@ -79,7 +79,7 @@ $(function() {
 		}else{
 			$.ajax({
 				url: 'php/login.php',
-				type: 'GET',
+				type: 'POST',
 				dataType: 'json',
 				data: {
 					uname: username,

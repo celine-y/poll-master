@@ -14,10 +14,13 @@ var urlParams;
 $(document).ready(function(){
 
 	//get polls and groups
-	pollList();
 	groupList();
-
+	pollList();
+	
 	$('a.navbar-brand').text('Welcome, '+urlParams.user);
+	$('#logout').on('click', function(){
+		$(location).attr('href', './login.html');
+	});
 
 	//table filter
 	$('.btn-filter').on('click', function () {
@@ -32,7 +35,7 @@ $(document).ready(function(){
 	});
 
 	//update favourite
-	$('button[data-target="addPoll"]').on('click', function () {
+	$('.star').on('click', function () {
 		if($(this).hasClass('star-checked')){
 			var action='delete';
 		}else{
@@ -82,7 +85,6 @@ $(document).ready(function(){
 
 });
 
-
 //display pollList on home page
 function pollList(){
 	//ajax call get all poll questions from specific user
@@ -91,20 +93,19 @@ function pollList(){
 		type: 'GET',
 		dataType: 'json',
 		data: {
-			userid: urlParams.uid,
-			username: urlParams.user
+			userid: urlParams.uid
 		},
 		success: function(data){
 			var html='';
 			$.each(data, function(index,val){
 				html+='<tr class="tr-filter" data-status="'+val.status+'" data-sid='+val.sid+'>';
-				html+='<td><span class="star '+ ((val.fave=='T')?'star-checked':'')+'"><i class="glyphicon glyphicon-star"></i></span></td>';
+				html+='<td><a href="javascript:;" class="star '+ ((val.fave=='T')?'star-checked':'')+'"><i class="glyphicon glyphicon-star"></i></a></td>';
 				html+='<td><div class="media">';
 				html+='<a href="#" class="pull-left"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo"></a>';
 				html+='<div class="media-body">';
-				html+='<span class="media-meta pull-right">Febrero 13, 2016</span><h4 class="title">'+val.sq;
+				html+='<span class="media-meta pull-right"></span><h4 class="title">'+val.sq;
 				html+='<span class="pull-right '+val.status+'">'+val.status+'</span></h4>';
-				html+='<p class="summary">Group Memebers</p>';
+				html+='<p class="summary">'+val.tags+'</p>';
 				html+='</div></div></td></tr>';				
 			});
 			$('tbody#pollQuest').append(html);
@@ -122,12 +123,13 @@ function groupList(){
 		type: 'GET',
 		dataType: 'json',
 		data: {
-			userid: '1'
+			userid: urlParams.uid
 		},
 		success: function(data){
 			var html='';
+			groupmem=data.mem;
 			$.each(data, function(index,val){
-				html+='<tr data-gid='+val.gid+'>';
+				html+='<tr data-gid='+val.gid+' data-admin='+val.admin+'>';
 				html+='<td><div class="media"><div class="media-body">';
 				html+='<span class="media-meta pull-right">'+((val.admin=='T')?'(Admin)':'')+'</span>';
 				html+='<h4 class="title">'+val.gname+'</h4>';

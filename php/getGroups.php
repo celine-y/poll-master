@@ -1,47 +1,39 @@
-<?php
-// Enable error logging: 
-error_reporting(E_ALL ^ E_NOTICE);
-// mysqli connection via user-defined function
-include ('./my_connect.php');
-$mysqli = get_mysqli_conn();
-?>
 
 <?php
 
-//List of group members --> XML
-$sql = "Select username"
-	  ."from username"
-	  ."where userid=1";
-
-$stmt = $mysqli->prepare($sql);
+include('./my_connect.php');
+get_mysqli_conn();
 
 $uid = $_GET['userid'];
+$uid = mysql_real_escape_string($uid);
 
+//gid, gname, admin, gmem
+$query = "
+Select 	g.gid, g.name,
+Case When g.adminid=$uid Then 'T' Else 'F' End as admin,
+gmem.mem
+From usergroup ugg
+Join groups g on g.gid=ugg.gid
+Join (	Select ug.gid,GROUP_CONCAT(u.username SEPARATOR ', ')as mem
+From usergroup ug
+Join user u on u.userid=ug.userid
+Group by ug.gid
+)gmem on gmem.gid=ugg.gid
+Where ugg.userid=$uid";
 
-//GET ERROR seems to occur here..
-//$stmt->bind_param('i', $uid); 
+$qry_result = mysql_query($query) or die(mysql_error());
 
-//$stmt->execute();
+$result = array();
+while ($row = mysql_fetch_array($qry_result)) {
+	$data = array (
+		"gid" => $row[gid],
+		"gname" => $row[name],
+		"admin" => $row[admin],
+		"gmem" => $row[mem],
+		);
+	array_push($result,$data);
+}
 
-//$stmt->bind_result($userName);
+echo json_encode($result);
 
-//$data =  array('msg' => 'true');
-//echo json_encode($data);
-
-//gid, gname, admin
-$data = array (
-	array("sid" => 1,
-	"sq" => "what to eat?",
-	"status" => "urgent",
-	"fave" => "T"),
-	array("sid" => 2,
-	"sq" => "what time do u sleep at?",
-	"status" => "moderate",
-	"fave" => "F")
-	);
-
-echo json_encode($data);
-
-//$stmt->close();
-$mysqli->close();
 ?>
