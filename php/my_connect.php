@@ -5,7 +5,7 @@ function get_mysqli_conn(){
 
   $dbhost = "mansci-db.uwaterloo.ca";
   $dbuser = "k3kittan";
-  $dbpass = "";
+  $dbpass = "p0llmaster123";
   $dbname = "k3kittan_proj";
 
   //Connect to MySQL Server

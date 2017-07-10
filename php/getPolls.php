@@ -10,7 +10,9 @@ $uid = mysql_real_escape_string($uid);
 
 //id, sq, status, favourite, tags, group memebers
 $query =
-"Select s.sid, s.question, c.descrip as status, coalesce(f.active,'F')as fave, COALESCE(tags.hash,'') as tags, gmem.mem
+"Select s.sid, s.question, c.descrip as status, 
+Case when f.sid is not null then 'T' else 'F' end as fave,
+COALESCE(tags.hash,'') as tags, gmem.mem
 From usergroup ug
 Left Join groupsurvey gs on gs.gid=ug.gid
 Join survey s on s.sid=gs.sid

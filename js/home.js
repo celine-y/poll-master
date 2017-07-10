@@ -35,14 +35,12 @@ $(document).ready(function(){
 	});
 
 	//update favourite
-	$('.star').on('click', function () {
+	$('.table-filter tbody').on('click', '.star', function () {
 		if($(this).hasClass('star-checked')){
 			var action='delete';
 		}else{
 			var action='insert';
 		}
-
-		//$(this).toggleClass('star-checked');
 
 		var favsid=$(this).closest('tr').data('sid');
 		//UPDATE or DELETE?
@@ -81,13 +79,14 @@ $(document).ready(function(){
 		//pass sid, uid
 		var userid=urlParams.uid;
 		var sid=$(this).data('sid');
-		
 	});
 
 	//click on a group
 	$('.table-filter tbody#group').on('click','tr', function(){
-		//pass sid, gid, uid
-		
+		//pass gid, uid
+		var userid=urlParams.uid;
+		var gid=$(this).data('gid');
+		var admin=$(this).data('admin');
 	});
 
 
