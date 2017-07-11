@@ -1,7 +1,7 @@
 <?php
 
  $dbhost = "mansci-db.uwaterloo.ca";
- $dbuser = "k3kittan";
+ $dbuser = "clcyau";
  $dbpass = "p0llmaster123";
  $conn = mysql_connect($dbhost, $dbuser, $dbpass);
 
@@ -9,7 +9,7 @@ $uname = $_POST['uname'];
 $upass = $_POST['upass'];
 
 //CHECK IF USERNAME EXIST IN TABLE ALREADY
-mysql_select_db('k3kittan_proj');
+mysql_select_db('clcyau_pollmaster');
 $query="Select username from user where username='$uname'";
 
 $qry_result = mysql_query($query) or die(mysql_error());

@@ -61,13 +61,25 @@ $(document).ready(function(){
 					console.log("error in updateFave.php");
 				}
 			}
-		})
+		});
 	});
 
 	//add poll
 	$('button[data-target="addPoll"]').on('click', function(){
 		//pass uid
-		//redirect to next page
+		var userid=urlParams.uid;
+		$.ajax({
+			url: 'poll/transfer-variables.php',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				userId: userid
+			},
+			success: function(r){
+				console.log(r);
+				window.location='poll/add-poll.php';
+			}
+		});
 	});
 
 	//add group
@@ -81,6 +93,19 @@ $(document).ready(function(){
 		//pass sid, uid
 		var userid=urlParams.uid;
 		var sid=$(this).data('sid');
+		$.ajax({
+			url: 'poll/transfer-variables.php',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				userId: userid,
+				sid: sid
+			},
+			success: function(r){
+				console.log(r);
+				window.location='poll/poll-display.php';
+			}
+		});
 	});
 
 	//click on a group
