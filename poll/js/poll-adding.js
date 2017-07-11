@@ -51,12 +51,12 @@ $(document).ready(function() {
                 if (result == true){
                     responseMsg = '<div class="alert alert-success" role="alert">'+
                         '<strong>Thanks!</strong>'+'Your survey has been submitted'+'</div>';
-                    $('#response').append(responseMsg).slide("medium");
+                    $('#response').append(responseMsg).slideDown("medium");
                 }
                 else{
                     responseMsg = '<div class="alert alert-danger" role="alert">'+
                         '<strong>Sorry!</strong>'+'Your survey could not be submitted'+'</div>';
-                    $('#response').append(responseMsg).slide("medium");
+                    $('#response').append(responseMsg).slideDown("medium");
                 }
             },
             error: function(result){
