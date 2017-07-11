@@ -49,33 +49,24 @@
 	<div class="container">
 		<div class="row">
 			<section class="content" id="pollList">
-				<div class="col-md-7">
-
-					<h2>My Polls</h2>
-
+				<div class="col-md-offset-3 col-md-6">
+				<h3>Add Group</h3>
 					<div class="panel panel-default">
 						<div class="panel-body">
-							
-							<div class="pull-left">
-								<div class="btn-group">
-									<button type="button" class="btn btn-default" data-target="addPoll"><i class="glyphicon glyphicon-plus"></i>  Add</button>
-								</div>
+							<div class="form-group">
+								<h5><label for="gname">Group Name</label></h5>
+								<input type="text" class="form-control" id="gname">
 							</div>
-							<div class="pull-right">
-								<div class="btn-group">
-									<button type="button" class="btn btn-success btn-filter" data-target="normal">Normal</button>
-									<button type="button" class="btn btn-warning btn-filter" data-target="moderate">Moderate</button>
-									<button type="button" class="btn btn-danger btn-filter" data-target="urgent">Urgent</button>
-									<button type="button" class="btn btn-default btn-filter" data-target="all">All</button>
-								</div>
+
+							<h5><b>Select Members</b></h5>
+							<div class="well" style="max-height: 300px;overflow: auto;">
+								<ul id="check-list-box" class="list-group checked-list-box">
+								<!-- append members -->
+								</ul>
 							</div>
-							<div class="table-container">
-								<table class="table table-filter">
-									<tbody id="pollQuest">
-										<!-- append tr -->
-									</tbody>
-								</table>
-							</div><!-- table-container -->
+							<button class="btn btn-primary col-xs-12" id="create-group"><b>Create Group<b></button>
+							<br/>
+							<div id="warning"></div>
 						</div>
 					</div>
 				</div>

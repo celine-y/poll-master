@@ -36,6 +36,7 @@ $(document).ready(function(){
 
 	//update favourite
 	$('.table-filter tbody').on('click', '.star', function () {
+		var row=$(this);
 		if($(this).hasClass('star-checked')){
 			var action='delete';
 		}else{
@@ -43,21 +44,22 @@ $(document).ready(function(){
 		}
 
 		var favsid=$(this).closest('tr').data('sid');
-		//UPDATE or DELETE?
+		
 		$.ajax({
 			url: 'php/updateFave.php',
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				userid: 1,
-				sid: 2,
-				action: 'insert'
+				userid: urlParams.uid,
+				sid: favsid,
+				action: action
 			},
-			success: function(){
-				$(this).toggleClass('star-checked');
-			},
-			error: function(){
-				console.log("error in updateFav.php");
+			success: function(r){
+				if (r=='success'){
+					row.toggleClass('star-checked');					
+				}else{
+					console.log("error in updateFave.php");
+				}
 			}
 		})
 	});
@@ -71,7 +73,7 @@ $(document).ready(function(){
 	//add group
 	$('button[data-target="addGroup"]').on('click', function(){
 		//pass uid
-		//redirect to next page
+		$(location).attr('href', './group.html?uid='+urlParams.uid);
 	});
 
 	//click on a survey

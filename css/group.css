@@ -1,0 +1,56 @@
+/*	--------------------------------------------------
+	General
+	-------------------------------------------------- */
+
+body {
+	padding-top: 70px;
+	font-family: 'Open Sans', sans-serif;
+	color: #353535;
+}
+
+.content h1 {
+	text-align: left;
+	display: inline-block;
+}
+
+#addPoll button{
+	text-align: center;
+	display: block;
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	margin-right: 5px;
+}
+
+/*	--------------------------------------------------
+	Panel
+	-------------------------------------------------- */
+.panel {
+	border: 1px solid #ddd;
+	background-color: #fcfcfc;
+}
+.panel .btn-group {
+	margin: 15px 0 30px;
+}
+.panel .btn-group .btn {
+	transition: background-color .3s ease;
+}
+
+/*	--------------------------------------------------
+	Add Members
+	-------------------------------------------------- */
+.list-group-item {
+	cursor: pointer;
+}
+
+.list-group-item .active{
+	color: #F0AD4E;
+}
+
+#warning{
+	margin-top: 30px;
+	text-align:center;
+	color: red;
+	font-weight: bold;
+	font-size: medium;
+}

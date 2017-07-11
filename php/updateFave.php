@@ -1,29 +1,34 @@
 <?php
-// Enable error logging: 
-error_reporting(E_ALL ^ E_NOTICE);
-// mysqli connection via user-defined function
-include ('./my_connect.php');
-$mysqli = get_mysqli_conn();
 
-// $sid = $_POST['sid'];
-// $uid = $_POST['userid'];
-// $action = $_POST['action'];
+ $dbhost = "mansci-db.uwaterloo.ca";
+ $dbuser = "k3kittan";
+ $dbpass = "p0llmaster123";
+ $conn = mysql_connect($dbhost, $dbuser, $dbpass);
 
-// if ($action=='insert'){
-// 	$sql = "Insert into favourite"
-// 	."Values (?,?)";	
-// }else{
-// 	$sql = "Delete from favourite"
-// 	."where favourite.userid=? and favourite.sid=?";	
-// }
 
-$sql = "Insert into favourite"
-."Values (345,234)";	
+if(! $conn ) {
+	die('Could not connect: ' . mysql_error());
+}
 
-$stmt = $mysqli->prepare($sql);
-$stmt->execute();
-//$stmt->bind_param('ii', $userid, $sid); 
+$uid = $_POST['userid'];
+$sid = $_POST['sid'];
+$action = $_POST['action'];
 
-$stmt->close(); 
-$mysqli->close();
+
+if ($action=="insert"){
+	$sql="INSERT INTO favourite VALUES ($uid, $sid)";
+}else if ($action=="delete"){
+	$sql="DELETE FROM favourite WHERE sid=$sid";
+}
+
+mysql_select_db('k3kittan_proj');
+$retval = mysql_query( $sql, $conn );
+
+if(! $retval ) {
+	die('Could not update data: ' . mysql_error());
+}
+
+echo json_encode("success");
+
+mysql_close($conn);
 ?>
