@@ -20,7 +20,11 @@ $(document).ready(function() {
         return false;
     });
 
-    
+    $('#survey-color').on('click', 'button.btn', function(e){
+        var parent = $(this).parent();
+        $('.active', parent).removeClass('active');
+        $(this).addClass('active');
+    });
 
     $('form').submit(function(e){
         e.preventDefault();
@@ -30,9 +34,8 @@ $(document).ready(function() {
               .map(function(){return $(this).val();}).get();
         var groupId = $("input[name='group[]']:checked").val();
         var tags = $("input[id='s-tag']").val().split(",");
-        // console.log(qName, options, groupId, tags);
-
-        //TODO: pass this info to PHP to insert
+        var urgency = $("button.btn.active").val();
+        
         $.ajax({
             url: "../poll/submit-add-poll.php", 
             type: 'POST',
@@ -40,12 +43,21 @@ $(document).ready(function() {
                 q_name: qName,
                 options: JSON.stringify(options),
                 groupId:groupId,
-                tags:JSON.stringify(tags)
+                tags:JSON.stringify(tags),
+                urgency:urgency
             },
             dataType: 'json',
             success: function(result){
-                // $("#response").html(result);
-                console.log(result);
+                if (result == true){
+                    responseMsg = '<div class="alert alert-success" role="alert">'+
+                        '<strong>Thanks!</strong>'+'Your survey has been submitted'+'</div>';
+                    $('#response').append(responseMsg).slideDown("medium");
+                }
+                else{
+                    responseMsg = '<div class="alert alert-danger" role="alert">'+
+                        '<strong>Sorry!</strong>'+'Your survey could not be submitted'+'</div>';
+                    $('#response').append(responseMsg).slideDown("medium");
+                }
             },
             error: function(result){
                 console.log("AJAX eror: "+result);
