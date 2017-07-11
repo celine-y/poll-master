@@ -12,7 +12,8 @@ class addPoll{
 
     function get_colour(){
         $strStmt = "SELECT class, cid, descrip
-            FROM color";
+            FROM color
+            ORDER BY cid";
 
         $query = mysqli_query($this->con, $strStmt);
 

@@ -11,6 +11,7 @@
     }
 
     $newPoll = new addPoll($uid);
+
     ?>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
