@@ -5,9 +5,11 @@ include('./my_connect.php');
 get_mysqli_conn();
 
 $uid = $_GET['userid'];
+
+
 $uid = mysql_real_escape_string($uid);
 
-//gid, gname, admin, gmem
+//gname, mem
 $query = "
 Select 	g.gid, g.name,
 Case When g.adminid=$uid Then 'T' Else 'F' End as admin,

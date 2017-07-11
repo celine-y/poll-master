@@ -73,7 +73,7 @@ $(document).ready(function(){
 	//add group
 	$('button[data-target="addGroup"]').on('click', function(){
 		//pass uid
-		$(location).attr('href', './group.html?uid='+urlParams.uid);
+		$(location).attr('href', './group.html?uid='+urlParams.uid+'&user='+urlParams.user);
 	});
 
 	//click on a survey
@@ -84,11 +84,10 @@ $(document).ready(function(){
 	});
 
 	//click on a group
-	$('.table-filter tbody#group').on('click','tr', function(){
+	$('.table-filter tbody#group').on('click','tr[data-admin="T"]', function(){
 		//pass gid, uid
-		var userid=urlParams.uid;
 		var gid=$(this).data('gid');
-		var admin=$(this).data('admin');
+		$(location).attr('href', './editGroup.html?gid='+gid+'&uid='+urlParams.uid+'&user='+urlParams.user);
 	});
 
 

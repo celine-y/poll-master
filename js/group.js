@@ -11,13 +11,22 @@ var urlParams;
          urlParams[decode(match[1])] = decode(match[2]);
  })();
 
-var uid=urlParams.uid;
-var gname='';
-var gmem=[];
-var members='';
+ var uid=urlParams.uid;
+ var gname='';
+ var gmem=[];
+ var members='';
 
  $(function () {
     getMemberList();
+
+    $('a.navbar-brand').text('Welcome, '+urlParams.user);
+    $('#logout').on('click', function(){
+        $(location).attr('href', './login.html');
+    });
+
+    $('#home, a.navbar-brand').on('click', function(){
+        window.location.reload(history.back());
+    });
 
     $('.list-group.checked-list-box').on('click', '.list-group-item',function () {   
         if ($(this).data('uid')!=uid){
@@ -28,7 +37,8 @@ var members='';
 
     $('#create-group').on('click', function(){
         gname=$('input#gname').val();
-
+        gmem=[];
+        
         $('.list-group-item-info').each(function(){
             gmem.push($(this).data('uid'));
         });
@@ -45,6 +55,7 @@ var members='';
 
     });
 
+
 });
 
  function submitGroup(){
@@ -59,12 +70,13 @@ var members='';
         },
         success: function(r){
             if (r=='success'){
-
-            }else{
-
-            }
-        }
-    })
+                $('#warning').text(gname+' created!');
+           }else if (r=='error'){
+             $('#warning').text(gname+' already exist');
+             $('#warning').effect("shake", { times:2 }, "slow");               
+         }
+     }
+ })
 }
 
 function getMemberList(){

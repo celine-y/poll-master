@@ -1,33 +1,48 @@
 <?php
 
- $dbhost = "mansci-db.uwaterloo.ca";
- $dbuser = "k3kittan";
- $dbpass = "p0llmaster123";
- $conn = mysql_connect($dbhost, $dbuser, $dbpass);
+$dbhost = "mansci-db.uwaterloo.ca";
+$dbuser = "k3kittan";
+$dbpass = "p0llmaster123";
+$conn = mysql_connect($dbhost, $dbuser, $dbpass);
 
 $gname = $_POST['gname']; 
-$mem = $_POST['members'];
-$admin = $_POST['uid'];
+$gmem = $_POST['gmem'];
+$admin = $_POST['admin'];
 
-$gname = mysql_real_escape_string($gname);
+$memarr=explode(',', $gmem);
 
-//CHECK IF GROUPNAME EXIST ALREADY
 mysql_select_db('k3kittan_proj');
-$query="SELECT gid FROM groups where Adminid=$admin and name=$gname";
+$query="Select g.gid FROM groups g where g.Adminid=$admin and g.name='$gname'";
 
 $qry_result = mysql_query($query) or die(mysql_error());
 
 if (mysql_num_rows($qry_result)==0){
 	//add groups
-	$sql = "INSERT INTO groups (Adminid, name) VALUES ($admin, $gname)";
+	$sql = "INSERT INTO groups (Adminid, name) VALUES ($admin, '$gname')";
 
 	$retval = mysql_query( $sql, $conn);
 
 	if(! $retval ) {
 		die('Could not enter data: ' . mysql_error().$conn);
+	}else{
+		$qry_result = mysql_query($query) or die(mysql_error());
+		$row= mysql_fetch_array($qry_result);
+		$gid=$row[gid];
+
+		//add to usergroup
+		$sqlmem = array();
+		foreach($memarr as $uid){
+			$sqlmem[]='('.mysql_real_escape_string($gid).', '.$uid.')';
+		}
+		$sqlUserGroup="INSERT INTO usergroup (gid, userid) VALUES".implode(',',$sqlmem);
+
+		$retval = mysql_query( $sqlUserGroup, $conn);
+		if(! $retval ) {
+			die('Could not enter data: ' . mysql_error().$conn);
+		}else{
+			echo json_encode("success");
+		}
 	}
-	echo json_encode("success". $mem);
-	//add to usergroup
 
 }else{
 	echo json_encode("error");
