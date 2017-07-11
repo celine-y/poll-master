@@ -90,6 +90,9 @@
                 $status = $newPoll->get_colour();
                 foreach($status as $colour){
                     if ($colour[0] != NULL){
+                        if ($colour[1] == 1){
+                            $colour[0] .= " active";
+                        }
                         echo '<button type="button" class="btn '.$colour[0].'" value="'.$colour[1].'">'.$colour[2].'</button>';
                     }
                 }

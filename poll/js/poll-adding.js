@@ -8,6 +8,7 @@ $(document).ready(function() {
             newEntry = $(currentEntry.clone()).appendTo(controlForm);
         
         newEntry.find('input').val('');
+        newEntry.find('input').focus();
         controlForm.find('.entry:not(:last) .btn-add')
             .removeClass('btn-add').addClass('btn-remove')
             .removeClass('btn-success').addClass('btn-danger')
@@ -50,12 +51,13 @@ $(document).ready(function() {
             success: function(result){
                 if (result == true){
                     responseMsg = '<div class="alert alert-success" role="alert">'+
-                        '<strong>Thanks!</strong>'+'Your survey has been submitted'+'</div>';
+                        '<strong>Thanks! </strong>'+'Your survey has been submitted'+'</div>';
                     $('#response').append(responseMsg).slideDown("medium");
+                    $('form#add-poll').slideUp("medium");
                 }
                 else{
                     responseMsg = '<div class="alert alert-danger" role="alert">'+
-                        '<strong>Sorry!</strong>'+'Your survey could not be submitted'+'</div>';
+                        '<strong>Sorry! </strong>'+'Your survey could not be submitted'+'</div>';
                     $('#response').append(responseMsg).slideDown("medium");
                 }
             },
