@@ -12,6 +12,7 @@
     // }
 
     $newPoll = new addPoll($uid);
+    $username = $newPoll->getUserName();
 
     ?>
     <!-- Latest compiled and minified CSS -->
@@ -27,29 +28,37 @@
 
     <!--submitting form-->
     <script src="js/poll-adding.js"></script>
+
+    <!--used for going back to home page-->
+    <script type="text/javascript">
+        var userid ="<?php echo $uid; ?>";
+        var username = "<?php echo $username; ?>"
+    </script>
+    <script src="../js/navbar.js"></script>
+
 </head>
 <body>
     <?php include('../navbar.html'); ?>
     <div class="container">
         <div class="row">
-            <section class="row">
-                <div class="col-md-7">
+            <section class="content">
+                <div class="col-md-offset-3 col col-md-6">
                     <h1 id="title">Add a survey</h1>
                     <div id="response"></div>
                         <div id="add-panel" class="panel panel-default">
                             <div class="panel-body">
                                 <form role="form" id="add-poll" method="post">
                                     <div class="form-group row">
-                                        <div id="questionName" class="col-md-6">
-                                            <label class="control-label" for="questionName">Question</label>
+                                        <div id="questionName" class="col col-md-12">
+                                            <h2 class="control-label" for="questionName">Question</h2>
                                             <input type="text" class="form-control" id="q-name"
                                                 aria-describedby="questionHelp"/>
-                                            <small id="questionHelp" class="form-text text-muted">i.e. What is your favourite colour?</small>
+                                            <h5 id="questionHelp" class="form-text text-muted">i.e. What is your favourite colour?</h5>
                                         </div>
                                     </div><!--end form-group for Question name-->
                                     <div class="form-group row" id="options-area">
-                                        <div class="col-md-6">
-                                            <label for="controls" class="control-label">Options</label>
+                                        <div class="col col-md-12">
+                                            <h2 for="controls" class="control-label">Options</h2>
                                             <div class="controls">
                                                 <div class="entry input-group">
                                                     <input type="text" class="form-control" name="option[]"/>
@@ -72,8 +81,8 @@
                                     </div><!--end form-group for Options-->
 
                                     <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <label for="user-group" class="control-label">Belongs to Group:</label>
+                                        <div class="col col-md-12">
+                                            <h2 for="user-group" class="control-label">Belongs to Group</h2>
                                             <div id="user-group">
                                                 <?php 
                                                 $groups  = $newPoll->get_users_groups();
@@ -91,17 +100,17 @@
                                     </div><!--end form-group for Group-->
 
                                     <div class="form-group row">
-                                        <div id="survey-tag" class="col-md-6">
-                                            <label for="survey-tag" class="control-label">Tag(s)</label>
+                                        <div id="survey-tag" class="col col-md-12">
+                                            <h2 for="survey-tag" class="control-label">Tag(s)</h2>
                                             <input type="text" class="form-control" id="s-tag"
                                                 aria-describedby="tagHelp" placeholder="food, friends, fun"/>
-                                            <small id="tagHelp" class="form-text text-muted">Seperate each tag by a comma</small>
+                                            <h5 id="tagHelp" class="form-text text-muted">Seperate each tag by a comma</h5>
                                         </div>
                                     </div><!--end form-group for Tags-->
 
                                     <div class="form-group row">
-                                        <div id="survey-color" class="col-md-6">
-                                            <label for="survey-color" class="control-label">Urgency</label>
+                                        <div id="survey-color" class="col col-md-12">
+                                            <h2 for="survey-color" class="control-label">Urgency</h2>
                                             <?php
                                             $status = $newPoll->get_colour();
                                             foreach($status as $colour){
@@ -118,7 +127,7 @@
 
                                     <!--Sumbit button start-->
                                     <div class="form-group row">
-                                        <div class="col-md-6">
+                                        <div class="col col-md-12">
                                             <button id="submit" type="submit" class="btn btn-default">Add Question</button>
                                         </div>
                                     </div>

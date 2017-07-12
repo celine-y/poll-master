@@ -1,7 +1,7 @@
 <?php
 
 $dbhost = "mansci-db.uwaterloo.ca";
-$dbuser = "k3kittan";
+$dbuser = "clcyau";
 $dbpass = "p0llmaster123";
 $conn = mysql_connect($dbhost, $dbuser, $dbpass);
 
@@ -12,7 +12,7 @@ $gid = $_POST['gid'];
 
 $memarr=explode(',', $gmem);
 
-mysql_select_db('k3kittan_proj');
+mysql_select_db('clcyau_pollmaster');
 
 $query="DELETE from usergroup where gid=$gid";
 $qry_result = mysql_query($query) or die(mysql_error());

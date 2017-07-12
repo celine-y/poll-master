@@ -16,6 +16,7 @@
     //     $_SESSION['sid'] = $sid;
     // }
     $poll = new poll($uid, $sid);
+    $username = $poll->getUserName();
     ?>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -26,7 +27,14 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="../js/bootstrap.min.js"></script>
+
+    <!--used for going back to home page-->
+    <script type="text/javascript">
+        var userid ="<?php echo $uid; ?>";
+        var username = "<?php echo $username; ?>"
+    </script>
     <script src="../js/navbar.js"></script>
+
 </head>
 
 <body>
@@ -36,7 +44,7 @@
     <div class="container">
         <div class="row">
             <section class="content">
-                <div class="col-md-7">
+                <div class="col-md-offset-3 col-md-6">
                     <h1 id="title"><?php echo $poll->getTitle();?></h3>
                     <div class="panel panel-default">
                         <div class="panel-body">

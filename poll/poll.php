@@ -29,6 +29,20 @@ class poll{
         return $uservote;
     }
 
+    function getUserName(){
+        $strStmt = "SELECT u.username
+        FROM user u
+        WHERE u.userid=".$this->userid;
+
+        $query = mysqli_query($this->con, $strStmt);
+        if(!$query){
+            die('Could not query='.$strStmt);
+        }
+        $username = $query->fetch_row()[0];
+
+        return $username;
+    }
+
     function getTitle(){
         // $this->$con = cy_conn();
         //print out the title

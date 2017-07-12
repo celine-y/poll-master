@@ -1,7 +1,7 @@
 <?php
 
  $dbhost = "mansci-db.uwaterloo.ca";
- $dbuser = "k3kittan";
+ $dbuser = "clcyau";
  $dbpass = "p0llmaster123";
  $conn = mysql_connect($dbhost, $dbuser, $dbpass);
 
@@ -10,7 +10,7 @@ $gid = $_POST['gid'];
 
 $gname=mysql_real_escape_string($gname);
 
-mysql_select_db('k3kittan_proj');
+mysql_select_db('clcyau_pollmaster');
 $query="Select g.name from groups g where g.name='$gname'";
 
 $qry_result = mysql_query($query) or die(mysql_error());

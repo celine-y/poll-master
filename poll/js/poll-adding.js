@@ -52,7 +52,7 @@ $(document).ready(function() {
                 if (result == true){
                     responseMsg = '<div class="alert alert-success" role="alert">'+
                         '<strong>Thanks! </strong>'+'Your survey has been submitted. '+
-                        '<a href="../home.html" class="alert-link">'+
+                        '<a href="../home.html?user='+username+'&uid='+userid+'" class="alert-link">'+
                         'Click here to go home</a></div>';
                     $('#response').append(responseMsg).slideDown("medium");
                     $('div#add-panel').slideUp("medium");
