@@ -25,7 +25,7 @@ var urlParams;
     });
 
     $('#home, a.navbar-brand').on('click', function(){
-        window.location.reload(history.back());
+        $(location).attr('href', './home.html?user='+urlParams.user+'&uid='+urlParams.uid;
     });
 
     $('.list-group.checked-list-box').on('click', '.list-group-item',function () {   

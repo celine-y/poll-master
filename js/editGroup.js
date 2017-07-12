@@ -26,93 +26,97 @@ var urlParams;
         $('#logout').on('click', function(){
             $(location).attr('href', './login.html');
         });
-        
-        $('.list-group.checked-list-box').on('click', '.list-group-item',function () {   
-            if ($(this).data('uid')!=uid){
-                $(this).toggleClass("list-group-item-info");
-            }
+
+        $('#home, a.navbar-brand').on('click', function(){
+            $(location).attr('href', './home.html?user='+urlParams.user+'&uid='+urlParams.uid);
         });
 
-        $('#save-group').on('click', function(){
-            gname=$('input#gname').val();
-            gmem=[];
-
-            $('.list-group-item-info').each(function(){
-                gmem.push($(this).data('uid'));
+            $('.list-group.checked-list-box').on('click', '.list-group-item',function () {   
+                if ($(this).data('uid')!=uid){
+                    $(this).toggleClass("list-group-item-info");
+                }
             });
 
-            members=gmem.join();
+            $('#save-group').on('click', function(){
+                gname=$('input#gname').val();
+                gmem=[];
 
-            if(gnameOld!=gname){
-                saveGroupName();
-            }else{
-                saveGroupInfo();
-            }
+                $('.list-group-item-info').each(function(){
+                    gmem.push($(this).data('uid'));
+                });
 
-            if (gname=='' || gmem==''){
-                $('#warning').text('Please enter all information');
-                $('#warning').effect("shake", { times:2 }, "slow");
-            }else{
+                members=gmem.join();
+
+                if(gnameOld!=gname){
+                    saveGroupName();
+                }else{
+                    saveGroupInfo();
+                }
+
+                if (gname=='' || gmem==''){
+                    $('#warning').text('Please enter all information');
+                    $('#warning').effect("shake", { times:2 }, "slow");
+                }else{
                 //saveGroupInfo();
             }
 
 
         });
 
-    });
+        });
 
-    function saveGroupName(){
-        $.ajax({
-            url: 'php/saveGroupName.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                gname: gname,
-                gid: gid
-            },
-            success: function(r){
-               if (r=='error'){
-                 $('#warning').text(gname+' already exist');
-                 $('#warning').effect("shake", { times:2 }, "slow");               
-             }else if (r=='success'){
+        function saveGroupName(){
+            $.ajax({
+                url: 'php/saveGroupName.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    gname: gname,
+                    gid: gid
+                },
+                success: function(r){
+                 if (r=='error'){
+                   $('#warning').text(gname+' already exist');
+                   $('#warning').effect("shake", { times:2 }, "slow");               
+               }else if (r=='success'){
                 gnameOld=gname;
                 saveGroupInfo();
             }
         }
     })
-    }
+        }
 
-    function saveGroupInfo(){
-        $.ajax({
-            url: 'php/saveGroupInfo.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                gname: gname,
-                gmem: members,
-                admin: uid,
-                gid: gid
-            },
-            success: function(r){
-                if (r=='success'){
-                    $('#warning').text('Saved!');
-                    $('#warning').effect("shake", { times:2 }, "slow"); 
+        function saveGroupInfo(){
+            $.ajax({
+                url: 'php/saveGroupInfo.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    gname: gname,
+                    gmem: members,
+                    admin: uid,
+                    gid: gid
+                },
+                success: function(r){
+                    if (r=='success'){
+                        $('#warning').text('Saved!');
+                        $('#warning').effect("shake", { times:2 }, "slow"); 
+                    }
                 }
-            }
-        })
-    }
+            })
+        }
 
-    function getGroupInfo(){
-    	$.ajax({
-    		url: 'php/getGroupInfo.php',
-    		type: 'GET',
-    		dataType: 'json',
-    		data: {
+        function getGroupInfo(){
+           $.ajax({
+              url: 'php/getGroupInfo.php',
+              type: 'GET',
+              dataType: 'json',
+              data: {
                 gid: urlParams.gid,
                 uid: urlParams.uid
             },
             success: function(data){
-               var html='';
+             var html='';
             //gname, members, selected mem (T/F)
             $.each(data, function(index,val){
             	html+='<li class="list-group-item'+((val.mem=='T')?' list-group-item-info':'')+'"'+' data-uid='+val.uid+'>'+val.uname+'</li>'     
@@ -120,9 +124,9 @@ var urlParams;
             $('#check-list-box').append(html);
         }
     });
-    }
+       }
 
-    function getGroupName(){
+       function getGroupName(){
         $.ajax({
             url: 'php/getGroupName.php',
             type: 'GET',
