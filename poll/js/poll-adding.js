@@ -51,9 +51,11 @@ $(document).ready(function() {
             success: function(result){
                 if (result == true){
                     responseMsg = '<div class="alert alert-success" role="alert">'+
-                        '<strong>Thanks! </strong>'+'Your survey has been submitted'+'</div>';
+                        '<strong>Thanks! </strong>'+'Your survey has been submitted. '+
+                        '<a href="../home.html" class="alert-link">'+
+                        'Click here to go home</a></div>';
                     $('#response').append(responseMsg).slideDown("medium");
-                    $('form#add-poll').slideUp("medium");
+                    $('div#add-panel').slideUp("medium");
                 }
                 else{
                     responseMsg = '<div class="alert alert-danger" role="alert">'+

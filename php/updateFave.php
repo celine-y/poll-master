@@ -1,7 +1,7 @@
 <?php
 
  $dbhost = "mansci-db.uwaterloo.ca";
- $dbuser = "k3kittan";
+ $dbuser = "clcyau";
  $dbpass = "p0llmaster123";
  $conn = mysql_connect($dbhost, $dbuser, $dbpass);
 
@@ -21,7 +21,7 @@ if ($action=="insert"){
 	$sql="DELETE FROM favourite WHERE sid=$sid";
 }
 
-mysql_select_db('k3kittan_proj');
+mysql_select_db('clcyau_pollmaster');
 $retval = mysql_query( $sql, $conn );
 
 if(! $retval ) {

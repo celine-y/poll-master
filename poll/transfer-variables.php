@@ -1,9 +1,10 @@
 <?php
-if ($_POST['userid'] != NULL){
+session_start();
+if ($_POST['userId'] != NULL){
     $_SESSION['userId'] = $_POST['userId'];
 }
 if ($_POST['sid'] != NULL){
     $_SESSION['sid'] = $_POST['sid'];
 }
-echo true;
+echo $_SESSION['userId'];
 ?>

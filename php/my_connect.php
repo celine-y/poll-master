@@ -4,9 +4,9 @@ error_reporting(E_ALL ^ E_NOTICE);
 function get_mysqli_conn(){
 
   $dbhost = "mansci-db.uwaterloo.ca";
-  $dbuser = "k3kittan";
+  $dbuser = "clcyau";
   $dbpass = "p0llmaster123";
-  $dbname = "k3kittan_proj";
+  $dbname = "clcyau_pollmaster";
 
   //Connect to MySQL Server
   $conn = mysql_connect($dbhost, $dbuser, $dbpass);

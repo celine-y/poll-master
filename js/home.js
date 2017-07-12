@@ -76,7 +76,6 @@ $(document).ready(function(){
 				userId: userid
 			},
 			success: function(r){
-				console.log(r);
 				window.location='poll/add-poll.php';
 			}
 		});
@@ -102,7 +101,6 @@ $(document).ready(function(){
 				sid: sid
 			},
 			success: function(r){
-				console.log(r);
 				window.location='poll/poll-display.php';
 			}
 		});

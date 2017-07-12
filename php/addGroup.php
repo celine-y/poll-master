@@ -1,7 +1,7 @@
 <?php
 
 $dbhost = "mansci-db.uwaterloo.ca";
-$dbuser = "k3kittan";
+$dbuser = "clcyau";
 $dbpass = "p0llmaster123";
 $conn = mysql_connect($dbhost, $dbuser, $dbpass);
 
@@ -11,7 +11,7 @@ $admin = $_POST['admin'];
 
 $memarr=explode(',', $gmem);
 
-mysql_select_db('k3kittan_proj');
+mysql_select_db('clcyau_pollmaster');
 $query="Select g.gid FROM groups g where g.Adminid=$admin and g.name='$gname'";
 
 $qry_result = mysql_query($query) or die(mysql_error());
