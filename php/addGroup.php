@@ -9,6 +9,8 @@ $gname = $_POST['gname'];
 $gmem = $_POST['gmem'];
 $admin = $_POST['admin'];
 
+$gname=mysql_real_escape_string($gname);
+
 $memarr=explode(',', $gmem);
 
 mysql_select_db('clcyau_pollmaster');
