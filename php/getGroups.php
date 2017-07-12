@@ -21,7 +21,8 @@ From usergroup ug
 Join user u on u.userid=ug.userid
 Group by ug.gid
 )gmem on gmem.gid=ugg.gid
-Where ugg.userid=$uid";
+Where ugg.userid=$uid
+Order by g.name";
 
 $qry_result = mysql_query($query) or die(mysql_error());
 

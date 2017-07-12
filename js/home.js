@@ -88,7 +88,7 @@ $(document).ready(function(){
 	});
 
 	//click on a survey
-	$('.table-filter tbody#pollQuest').on('click', 'tr', function() {
+	$('.table-filter tbody#pollQuest').on('click', 'tr td:nth-child(2)', function() {
 		//pass sid, uid
 		var userid=urlParams.uid;
 		var sid=$(this).data('sid');
