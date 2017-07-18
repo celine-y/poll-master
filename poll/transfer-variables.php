@@ -1,4 +1,5 @@
 <?php
+//transfer javascript ajax variables to php
 session_start();
 if ($_POST['userId'] != NULL){
     $_SESSION['userId'] = $_POST['userId'];
