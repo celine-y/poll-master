@@ -1,5 +1,7 @@
 <?php
 include('../php/my_connect.php');
+//class used in poll-display.php 
+//used to check if user has voted, and what info to display
 class poll{
     private $con;
     private $userid;
@@ -11,9 +13,9 @@ class poll{
         $this->con = cy_conn();
     }
 
+    //boolean for hasUserVoted
     function hasUserVoted(){
         
-        // $this->$con = cy_conn();
         //statement to select the row of uservote based on survey
         $strStmt = "SELECT *
             FROM uservote u
@@ -24,12 +26,13 @@ class poll{
         $query = mysqli_query($this->con, $strStmt);
         $uservote = (mysqli_num_rows($query) > 0) ? true: false;
 
-        // $this->$con->close();
-        // $query->close();
         return $uservote;
     }
 
+    //get user's username
+    //used for redirecting to homepage
     function getUserName(){
+        //select username for user
         $strStmt = "SELECT u.username
         FROM user u
         WHERE u.userid=".$this->userid;
@@ -44,8 +47,7 @@ class poll{
     }
 
     function getTitle(){
-        // $this->$con = cy_conn();
-        //print out the title
+        //print out the survey's title
         $strStmt = 'SELECT s.question
             FROM survey s
             WHERE s.sid='.$this->surveyid;
@@ -56,13 +58,13 @@ class poll{
         }
         $question = $query->fetch_row()[0];
 
-        // $this->$con->close();
-        // $query->close();
         return $question;
     }
 
+    //return html string with the results
     function poll_html_results(){
         $htmlStr = "";
+        
         foreach($this->get_poll_results() as $result){
             // $htmlStr .= '<div class="option-title">'.$result['opt_name'].'</div>
             //     <div class="option-nunm">'.(string)$result['opt_num'].'</div></br>';
@@ -76,9 +78,10 @@ class poll{
         return $htmlStr;
     }
 
+    //get the poll option and percent
     function get_poll_results(){
         
-        // $this->$con = get_mysqli_conn();
+        //select each option's name, count and userid for the survey
         $strStmt = 'SELECT opt.options, COUNT(*), uv.userid
         FROM uservote uv
         INNER JOIN options opt ON opt.oid = uv.oid
@@ -93,7 +96,6 @@ class poll{
         }
 
         //format $query into array(array(question name, percent))
-        
         $voteInfo = array(array());
         $q = 0;
         $totalVote = 0;
@@ -104,10 +106,12 @@ class poll{
             $q++;
         }
 
+        //format vote number to percentage
         foreach($voteInfo as &$question){
             $question['opt_num'] = round(($question['opt_num']/$totalVote)*100, 2);
         }
 
+        //select all the options that have not been selected
         $strStmt = "SELECT opt.options
             FROM options opt
             LEFT JOIN uservote uv ON uv.oid = opt.oid
@@ -125,15 +129,12 @@ class poll{
             $q++;
         }
 
-        // $this->$con->close();
-        // $query->close();
-
         return $voteInfo;
     }
 
+    //get all options
     function get_options(){
-        
-        // $this->$con = get_mysqli_conn();
+        //select all options (name and id) for the survey
         $strStmt = 'SELECT opt.options, opt.oid
             FROM options opt
             WHERE opt.sid='.$this->surveyid;
@@ -147,10 +148,6 @@ class poll{
         while($row = $query->fetch_row()){
             array_push($result, $row);
         }
-
-        
-        // $this->$con->close();
-        // $query->close();
         return $result;
     }
 

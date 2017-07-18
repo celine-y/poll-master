@@ -1,4 +1,5 @@
 <?php
+//used to insert user's vote into database
 session_start();
 
 $voteid = (int) $_POST['vote'];
@@ -15,10 +16,12 @@ $query->bind_param("ii", $userid, $voteid);
 
 $query->execute();
 
+//error inserting into database
 if ($query->errno){
     echo 'Error inserting your vote. Userid='.$userid.' Oid='.$voteid;
 }
 else{
+    //redirect to poll-display.php
     header('Location: poll-display.php');
 }
 

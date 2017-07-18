@@ -13,6 +13,7 @@ $err_message;
 $con = cy_conn();
 
 //INSERT QUESTION
+//check if procedure called AddNewPoll exists
 $checkProExists = 'SELECT ROUTINE_NAME
 FROM INFORMATION_SCHEMA.ROUTINES
 WHERE ROUTINE_TYPE="PROCEDURE"
@@ -22,6 +23,9 @@ $query = mysqli_query($con, $checkProExists);
 $proExist = (mysqli_num_rows($query) > 0) ? true: false;
 
 if(!$proExist){
+    //create procedure where
+    //takes questionName, urgency and inserts a new entry in the survey table
+    //outputs the new sid from new entry
     $strCreateProcedure = "
     DROP PROCEDURE IF EXISTS AddNewPoll;
     DELIMITER |
@@ -45,13 +49,16 @@ if(!$proExist){
 }
 $con->close();
 
+//actually does the inserting
 $sid = insertQuestionName($questionName, $urgency);
+//the insertion was successful
 if ($sid >= 0){
     insertOptions($sid, $options);
     insertGroup($sid, $groupId);
     insertTags($tags, $sid);
 }
 else {
+    //insertion for survey not sucessful
     $everything_ok = false;
     $err_message = "SID is < 0";
 }
@@ -68,9 +75,12 @@ else
         die(json_encode(array('message' => $err_message, 'code' => 1337)));
     }
 
+//inserts each option into options table
 function insertOptions($sid, $options){
     $con = cy_conn();
     foreach($options as $option){
+        //insert each option into insert table
+        //takes surveyid, and optionName
         $strInsertOptn = "INSERT INTO options (oid, sid, options)
             VALUES (DEFAULT, ?, ?)";
         $query = $con->prepare($strInsertOptn);
@@ -87,8 +97,10 @@ function insertOptions($sid, $options){
     $query->close();
 }
 
+//connects the survey to the group
 function insertGroup($sid, $groupId){
     $con = cy_conn();
+    //inserts the groupid and surveyid into groupsurvey table
     $strGroup = "INSERT INTO groupsurvey (gid, sid)
         VALUES (?,?)";
     $query = $con->prepare($strGroup);
@@ -105,6 +117,8 @@ function insertGroup($sid, $groupId){
 
 function insertTags($tags, $sid){
     $con = cy_conn();
+
+    //checks if stored procedure for AddTag exists
     $strProdExist = 'SELECT ROUTINE_NAME
         FROM INFORMATION_SCHEMA.ROUTINES
         WHERE ROUTINE_TYPE="PROCEDURE"
@@ -112,7 +126,13 @@ function insertTags($tags, $sid){
     $query = mysqli_query($con, $strProdExist);
     $procedureExist = (mysqli_num_rows($query) > 0) ? true: false;
 
+    //stored procedure AddTag does not exists
     if (!$procedureExist){
+        //Procedure to check if tag already exists
+        //if it does not exist, create a new tag entity & grab tagid
+        //if it does exist grab the tagid
+
+        //then insert the tagid and survey id into surtags table
         $strCreateProcedure="DROP PROCEDURE IF EXISTS AddTag;
         DELIMITER |
         CREATE PROCEDURE AddTag (

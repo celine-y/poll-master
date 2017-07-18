@@ -12,7 +12,7 @@ $(document).ready(function(){
     });
 
     //BACK Button
-    $('navbar #back').on('click', function(){
+    $('.navbar #back').on('click', function(){
         $(location).attr('href', '../home.html?user='+username+'&uid='+userid);
     });
 });

@@ -1,6 +1,8 @@
 <?php
 include('../php/my_connect.php');
 
+//class used in add-poll.php
+//deals with all the functions to process/retrieve data
 class addPoll{
     private $con;
     private $userid;
@@ -10,12 +12,16 @@ class addPoll{
         $this->con = cy_conn();
     }
 
+    //get user's username
+    //used for going back to the home page
     function getUserName(){
+        //select username based on userid
         $strStmt = "SELECT u.username
         FROM user u
         WHERE u.userid=".$this->userid;
 
         $query = mysqli_query($this->con, $strStmt);
+        //db error check
         if(!$query){
             die('Could not query='.$strStmt);
         }
@@ -24,7 +30,9 @@ class addPoll{
         return $username;
     }
 
+    //get different colours (includes class, id, and description)
     function get_colour(){
+        //select all the colour's class, cid, and description
         $strStmt = "SELECT class, cid, descrip
             FROM color
             ORDER BY cid";
@@ -35,6 +43,7 @@ class addPoll{
             die('Could not query='.$strStmt);
         }
 
+        //inserts each colour into array
         $colours = array(array());
         while($colourInfo = $query->fetch_row()){
             if ($colourInfo != NULL){
@@ -42,12 +51,12 @@ class addPoll{
             }
         }
         
-        // var_dump($colours);
         return $colours;
     }
 
+    //get the groups the user belongs to
     function get_users_groups(){
-
+        //select the groups' id and name for the user
         $strStmt = "SELECT g.gid, g.name
         FROM groups g
         WHERE g.gid IN (
@@ -58,6 +67,7 @@ class addPoll{
 
         $query = mysqli_query($this->con, $strStmt);
 
+        //db error check
         if (!$query){
             die('Could not query='.$strStmt);
         }

@@ -3,18 +3,10 @@
     <?php
     include('poll.php');
     session_start();
-
+    //gets userid and surveyid
     $uid = $_SESSION['userId'];
     $sid = $_SESSION['sid'];
-    // //TESTING
-    // if ($uid == NULL){
-    //     $uid = 1;
-    //     $_SESSION['userId'] = $uid;
-    // }
-    // if ($sid == NULL){
-    //     $sid = 31;
-    //     $_SESSION['sid'] = $sid;
-    // }
+
     $poll = new poll($uid, $sid);
     $username = $poll->getUserName();
     ?>
@@ -51,11 +43,13 @@
                             <div id="poll-content">
                                 <?php
                                 if (!$poll->hasUserVoted()){ //user has not voted
+                                    //get the options for the survey
                                     $pollOpt = $poll->get_options(); ?>
                                     <div id="poll-form" class="poll-area">
                                         <form action="poll-submit.php" method="post">
                                             <div class="form-group">
                                             <?php
+                                            //output each option for survey
                                             foreach($pollOpt as $row){
                                                 echo '
                                                 <div class="radio">
@@ -76,6 +70,7 @@
                                     <div id="poll-results" class="poll-area">
                                         <h4 class="subtitle">Results</h4>
                                     <?php
+                                    //show results of the survey
                                     echo $poll->poll_html_results();
                                     ?>
                                     </div><!--end div poll-result-->
