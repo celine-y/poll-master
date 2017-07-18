@@ -18,7 +18,7 @@ $action = $_POST['action'];
 if ($action=="insert"){
 	$sql="INSERT INTO favourite VALUES ($uid, $sid)";
 }else if ($action=="delete"){
-	$sql="DELETE FROM favourite WHERE sid=$sid";
+	$sql="DELETE FROM favourite WHERE sid=$sid and userid=$uid";
 }
 
 mysql_select_db('clcyau_pollmaster');
