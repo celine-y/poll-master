@@ -1,3 +1,4 @@
+//get url parameters
 var urlParams;
 (window.onpopstate = function () {
     var match,

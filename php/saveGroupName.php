@@ -11,10 +11,13 @@ $gid = $_POST['gid'];
 $gname=mysql_real_escape_string($gname);
 
 mysql_select_db('clcyau_pollmaster');
+
+//get group name
 $query="Select g.name from groups g where g.name='$gname'";
 
 $qry_result = mysql_query($query) or die(mysql_error());
 
+//if no group name exist
 if (mysql_num_rows($qry_result)==0){
 	$sql = "UPDATE groups SET name='$gname' where gid=$gid";
 
@@ -26,6 +29,7 @@ if (mysql_num_rows($qry_result)==0){
 		echo json_encode("success");
 	}
 }else{
+	//don't allow user to update group name if it existed already
 	echo json_encode("error");
 }
 

@@ -8,12 +8,13 @@
 $uname = $_POST['uname']; 
 $upass = $_POST['upass'];
 
-//CHECK IF USERNAME EXIST IN TABLE ALREADY
+//check if username exist in table already
 mysql_select_db('clcyau_pollmaster');
 $query="Select username from user where username='$uname'";
 
 $qry_result = mysql_query($query) or die(mysql_error());
 
+//if no username exist
 if (mysql_num_rows($qry_result)==0){
 	$sql = "INSERT INTO user (username, pw) VALUES ('$uname', '$upass')";
 
@@ -25,6 +26,7 @@ if (mysql_num_rows($qry_result)==0){
 		echo json_encode("sucess");
 	}
 }else{
+	//don't allow user to signup with existing username
 	echo json_encode("error");
 }
 

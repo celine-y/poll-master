@@ -9,7 +9,7 @@ $uid = $_GET['userid'];
 
 $uid = mysql_real_escape_string($uid);
 
-//gname, mem
+//get group name and members
 $query = "
 Select 	g.gid, g.name,
 Case When g.adminid=$uid Then 'T' Else 'F' End as admin,
@@ -37,6 +37,7 @@ while ($row = mysql_fetch_array($qry_result)) {
 	array_push($result,$data);
 }
 
+//send back data to ajax call
 echo json_encode($result);
 
 ?>

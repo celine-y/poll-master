@@ -10,7 +10,7 @@ $gid = $_GET['gid'];
 $uid = mysql_real_escape_string($uid);
 $gid = mysql_real_escape_string($gid);
 
-//gid, gname, admin, gmem
+//get gid, gname, admin, gmem
 $query = "
 Select u.userid, u.username, Case when gid is not null then 'T'
 else 'F' end as mem
@@ -30,6 +30,7 @@ while ($row = mysql_fetch_array($qry_result)) {
 	array_push($result,$data);
 }
 
+//send back data to ajax call
 echo json_encode($result);
 
 ?>

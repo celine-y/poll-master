@@ -39,7 +39,7 @@ $(function() {
 		var username=$('input#user-new').val();
 		var password=$('input#pass-new').val();
 		
-
+		//validation
 		if (username=='' || password==''){
 			$('#success').text('');
 			$('#foot-lnk2').text('Please enter both username and password');
@@ -73,6 +73,7 @@ $(function() {
 		var username=$('input#user').val();
 		var password=$('input#pass').val();
 
+		//validation
 		if (username=='' || password==''){
 			$('#foot-lnk').text('Please enter both username and password');
 			$('#foot-lnk').effect("shake", { times:2 }, "slow");

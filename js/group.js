@@ -1,3 +1,4 @@
+//get url parameters, uid, uname
 var urlParams;
 (window.onpopstate = function () {
     var match,
@@ -19,6 +20,7 @@ var urlParams;
  $(function () {
     getMemberList();
 
+    // navbar branding
     $('a.navbar-brand').text('Welcome, '+urlParams.user);
     $('#logout').on('click', function(){
         $(location).attr('href', './login.html');
@@ -28,13 +30,14 @@ var urlParams;
         $(location).attr('href', './home.html?user='+urlParams.user+'&uid='+urlParams.uid);
     });
 
+    //add class when user clicked on it
     $('.list-group.checked-list-box').on('click', '.list-group-item',function () {   
         if ($(this).data('uid')!=uid){
             $(this).toggleClass("list-group-item-info");
         }
     });
 
-
+    //add group
     $('#create-group').on('click', function(){
         gname=$('input#gname').val();
         gmem=[];
@@ -58,6 +61,7 @@ var urlParams;
 
 });
 
+ //add group info to database
  function submitGroup(){
     $.ajax({
         url: 'php/addGroup.php',
@@ -79,6 +83,7 @@ var urlParams;
  })
 }
 
+//display members list
 function getMemberList(){
     $.ajax({
         url: 'php/getMembers.php',

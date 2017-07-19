@@ -8,7 +8,7 @@ $uid = $_GET['userid'];
 
 $uid = mysql_real_escape_string($uid);
 
-//id, sq, status, favourite, tags, group memebers
+//this query gets id, sq, status, favourite, tags, group memebers
 $query =
 "Select s.sid, s.question, c.descrip as status, 
 Case when f.sid is not null then 'T' else 'F' end as fave,
@@ -36,7 +36,7 @@ Order by s.sid DESC";
 $qry_result = mysql_query($query) or die(mysql_error());
 
 $result = array();
-//sid, sq, status, favourite, tags, group memebers,username
+//get sid, sq, status, favourite, tags, group memebers,username
 while ($row = mysql_fetch_array($qry_result)) {
 	$data = array (
 		"sid" => $row[sid],
@@ -49,6 +49,7 @@ while ($row = mysql_fetch_array($qry_result)) {
 	array_push($result,$data);
 }
 
+//send back data to ajax call
 echo json_encode($result);
 
 ?>
