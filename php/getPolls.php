@@ -25,7 +25,7 @@ Join user u on u.userid=ug.userid
 Group by ug.gid
 )gmem on gmem.gid=ug.gid
 /*tags*/
-Left Join (	Select st.sid,GROUP_CONCAT(t.tname SEPARATOR ' ')as hash
+Left Join (	Select st.sid,GROUP_CONCAT(t.tname SEPARATOR ', ')as hash
 From surtags st
 Join tags t on st.tid=t.tid
 Group by st.sid
