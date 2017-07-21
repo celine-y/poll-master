@@ -1,4 +1,5 @@
 <?php
+
 include('../php/my_connect.php');
 //class used in poll-display.php 
 //used to check if user has voted, and what info to display
@@ -82,7 +83,7 @@ class poll{
     function get_poll_results(){
         
         //select each option's name, count and userid for the survey
-        $strStmt = 'SELECT opt.options, COUNT(*), uv.userid
+        $strStmt = 'SELECT opt.options, COUNT(*)
         FROM uservote uv
         INNER JOIN options opt ON opt.oid = uv.oid
         WHERE opt.sid ='.$this->surveyid.'
