@@ -1,5 +1,4 @@
 <?php
-
 include('../php/my_connect.php');
 //class used in poll-display.php 
 //used to check if user has voted, and what info to display
