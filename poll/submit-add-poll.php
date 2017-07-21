@@ -131,7 +131,6 @@ function insertTags($tags, $sid){
         //Procedure to check if tag already exists
         //if it does not exist, create a new tag entity & grab tagid
         //if it does exist grab the tagid
-
         //then insert the tagid and survey id into surtags table
         $strCreateProcedure="DROP PROCEDURE IF EXISTS AddTag;
         DELIMITER |
